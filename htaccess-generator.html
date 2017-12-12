@@ -1,0 +1,209 @@
+---
+permalink: htaccess-generator
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>htaccess | OnMyLemon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- CSS -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+
+      /* Sticky footer styles
+      -------------------------------------------------- */
+
+      html,
+      body {
+        height: 100%;
+        /* The html and body elements cannot have any padding or margin. */
+      }
+
+      /* Wrapper for page content to push down footer */
+      #wrap {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        /* Negative indent footer by it's height */
+        margin: 0 auto -60px;
+      }
+
+      /* Set the fixed height of the footer here */
+      #push,
+      #footer {
+        height: 60px;
+      }
+      #footer {
+        background-color: #f5f5f5;
+      }
+
+      /* Lastly, apply responsive CSS fixes as necessary */
+      @media (max-width: 767px) {
+        #footer {
+          margin-left: -20px;
+          margin-right: -20px;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
+
+      .container .credit {
+        margin: 20px 0;
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <div id="wrap">
+
+      <!-- Begin page content -->
+      <div class="container">
+        <div class="page-header">
+          <h1>htaccess | OnMyLemon</h1>
+        </div>
+        <p class="lead">Create a htaccess file to provide HTTP auth on Apache2 server.</p>
+
+
+        <div class="row" id="options">
+
+          <div class="span12">
+            <p class="lead">Basics</p>
+            <hr>
+          </div>
+
+          <div class="span6">
+            <input type="text" name="description" class="input-block-level" placeholder="Login Description">
+          </div>
+
+          <div class="span6">
+            <input type="text" name="path" class="input-block-level" placeholder="Location of .htpasswd (leave blank for same directory)">
+          </div>
+
+          <div class="span12">
+            <p class="lead">Users</p>
+            <hr>
+          </div>
+
+          <div id="users">
+            <div class="section">
+              <div class="span6">
+                <input type="text" name="user" class="input-block-level" placeholder="Username">
+              </div>
+              <div class="span6">
+                <input type="password" name="pass" class="input-block-level" placeholder="Password">
+              </div>
+            </div>
+          </div>
+
+          <div class="span12">
+            <a id="adduser" class="btn btn-danger input-block-level"> <i class="icon-plus"> </i> Add User</a>
+            <br />
+            <a id="btn-gen" class="btn btn-success btn-block"> <i class="icon-cog"> </i> Generate</a>
+            <hr>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row hide" id="generated">
+
+          <div class="span6">
+            <p class="lead">htaccess<p>
+            <textarea name="generated-htaccess" class="input-block-level" rows="5"></textarea>
+          </div>
+
+          <div class="span6">
+            <p class="lead center">htpasswd<p>
+            <textarea name="generated-htpasswd" class="input-block-level" rows="5"></textarea>
+          </div>
+
+          <div class="span12">
+            <hr>
+            <p class="lead">Copy the above text and save as .htaccess / .htpasswd in the </p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit"><a href="http://acode.ninja">&lt; Back to the site</a></p>
+      </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/js-md5/0.5.0/sha1.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+
+    <script>
+
+      $('#btn-gen').click( function() {
+        generate_htaccess();
+      });
+
+      $('#adduser').click(function(){
+        add_user_passwd();
+      });
+
+      function generate_htaccess(){
+
+        if( $('textarea[name="generated-htpasswd"]').val() == '' ){
+          alert("You need to add some users.");
+        } else {
+          description = $('input[name="description"]').val();
+          path = $('input[name="path"]').val();
+
+          if( description == '' ) {
+            description = "Please log in";
+          }
+          if ( path == '' ) {
+            path = "./.htpasswd";
+          }
+
+          htaccess = "AuthType Basic\nAuthName \"" + description + "\"\nAuthUserFile " + path + "\nRequire valid-user";
+          $('textarea[name=generated-htaccess]').val(htaccess);
+
+          $('#options').slideUp(function(){
+            $('#generated').slideDown();
+          });
+        }
+      }
+
+
+      function add_user_passwd() {
+
+        username = $('input[name="user"]').val();
+        password = $('input[name="pass"]').val();
+
+        if( username == '' ) {
+          alert("No username was entered.");
+        } else if( password == '' ) {
+          alert("No password was entered.");
+        } else {
+          password_enc = md5(password);
+          htpasswd = username + ":" + password_enc + "\n";
+          $('textarea[name="generated-htpasswd"]').val( $('textarea[name="generated-htpasswd"]').val() + htpasswd );
+          console.log("Generated user " + username + " with password " + password);
+          $('#adduser').parent().append('<div class="alert alert-success">Added user ' + username + ' with password ' + password + '</div>');
+
+          $('input[name="user"]').val('');
+          $('input[name="pass"]').val('');
+        }
+      }
+
+    </script>
+
+  </body>
+</html>
