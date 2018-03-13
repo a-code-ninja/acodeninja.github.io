@@ -18,6 +18,7 @@ author: lawrence@acode.ninja
 description: a blog by and mostly for the enjoyment of lawrence, relevence is at the reader's discresion
 twitter_username: acodeninja
 github_username: acodeninja
+google_analytics: UA-84862644-2
 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://acode.ninja" # the base hostname & protocol for your site, e.g. http://example.com
