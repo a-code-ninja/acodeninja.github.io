@@ -38,7 +38,8 @@ fails, and the error is returned to the validator instance.
 
 ## including in your project
 
-Using this validator is really easy, just use composer to install it
+Using this validator is really easy, check out the [Github Repo](https://github.com/acodeninja/laravel-pwned-passwords-validator) or just
+use composer to install it
 
 ```bash
 composer require acodeninja/laravel-pwned-passwords-validator
