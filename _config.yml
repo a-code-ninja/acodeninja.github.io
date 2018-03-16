@@ -15,7 +15,7 @@
 # in the templates via {{ site.myvariable }}.
 title: acode.ninja
 author: lawrence@acode.ninja
-description: a blog by and mostly for the enjoyment of lawrence, relevence is at the reader's discresion
+description: a blog by and mostly for the enjoyment of lawrence, relevence is at the reader's discretion
 twitter_username: acodeninja
 github_username: acodeninja
 google_analytics: UA-84862644-2
