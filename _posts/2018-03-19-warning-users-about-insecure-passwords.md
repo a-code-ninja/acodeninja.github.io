@@ -24,6 +24,7 @@ login password fails to pass.
 
 Simply put, add the following to your application's login controller, in a default application this is at `app/Http/Controllers/Auth/LoginController.php`
 
+{% raw %}
 ```php
 /**
  * @param Request $request
@@ -43,10 +44,12 @@ public function authenticated(Request $request, User $user)
         null;
 }
 ```
+{% endraw %}
 
 You can then display the errors as normal on the page your application redirects
 to, normally this would be `resources/views/home.blade.php`
 
+{% raw %}
 ```html
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -58,9 +61,11 @@ to, normally this would be `resources/views/home.blade.php`
     </div>
 @endif
 ```
+{% endraw %}
 
 Or you can make it look a little nicer and display it above other messages with
 
+{% raw %}
 ```html
 @if ($errors->has('password'))
     <div class="alert alert-danger">
@@ -68,3 +73,4 @@ Or you can make it look a little nicer and display it above other messages with
     </div>
 @endif
 ```
+{% endraw %}
