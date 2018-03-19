@@ -12,6 +12,10 @@ This small guide expects you to have my pwned passwords validator for laravel
 composer require acodeninja/laravel-pwned-passwords-validator
 ```
 
+Once installed, Laravel's package discovery will take care of loading the
+package for use in your application. You can read more about using the validator
+[here](http://acode.ninja/laravel-pwned-passwords-validator).
+
 ## checking passwords and warning users on login
 
 To check if a password is secure each time a user logs in you can use the
