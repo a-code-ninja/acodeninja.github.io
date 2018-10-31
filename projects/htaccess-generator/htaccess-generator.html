@@ -1,5 +1,5 @@
 ---
-permalink: htaccess-generator
+permalink: projects/htaccess-generator/
 ---
 
 <!DOCTYPE html>
@@ -143,9 +143,10 @@ permalink: htaccess-generator
       </div>
     </div>
 
-    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/js-md5/0.5.0/sha1.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
 
     <script>
 
@@ -192,7 +193,7 @@ permalink: htaccess-generator
         } else if( password == '' ) {
           alert("No password was entered.");
         } else {
-          password_enc = md5(password);
+          password_enc = CryptoJS.MD5(password).toString();
           htpasswd = username + ":" + password_enc + "\n";
           $('textarea[name="generated-htpasswd"]').val( $('textarea[name="generated-htpasswd"]').val() + htpasswd );
           console.log("Generated user " + username + " with password " + password);
